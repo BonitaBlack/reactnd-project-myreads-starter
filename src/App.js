@@ -1,6 +1,7 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
+import BookCase from './parts/BookCase';
 
 class BooksApp extends React.Component {
   state = {
@@ -13,6 +14,16 @@ class BooksApp extends React.Component {
     showSearchPage: false
   }
 
+  render()
+  {
+    return (
+      <BookCase />
+    )
+  }
+}
+export default BooksApp
+
+/*keeping just in case I delete something I shouldn't
   render() {
     return (
       <div className="app">
@@ -28,7 +39,7 @@ class BooksApp extends React.Component {
 
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
-                */}
+                }
                 <input type="text" placeholder="Search by title or author"/>
 
               </div>
@@ -80,7 +91,7 @@ class BooksApp extends React.Component {
                               </select>
                             </div>
                           </div>
-                          <div className="book-title">Ender's Game</div>
+                          <div className="book-title">Enders Game</div>
                           <div className="book-authors">Orson Scott Card</div>
                         </div>
                       </li>
@@ -123,7 +134,7 @@ class BooksApp extends React.Component {
                               </select>
                             </div>
                           </div>
-                          <div className="book-title">Harry Potter and the Sorcerer's Stone</div>
+                          <div className="book-title">Harry Potter and the Sorcerers Stone</div>
                           <div className="book-authors">J.K. Rowling</div>
                         </div>
                       </li>
@@ -166,7 +177,7 @@ class BooksApp extends React.Component {
                               </select>
                             </div>
                           </div>
-                          <div className="book-title">Oh, the Places You'll Go!</div>
+                          <div className="book-title">Oh, the Places Youll Go!</div>
                           <div className="book-authors">Seuss</div>
                         </div>
                       </li>
@@ -203,4 +214,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
+export default BooksApp*/
