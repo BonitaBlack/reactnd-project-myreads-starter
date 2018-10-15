@@ -15,9 +15,9 @@ class Changer extends Component
           <option value="none">None</option>
         </select>
       </div>
-    </div>
-
+  
     )
   }
+}
 
 export default Changer;

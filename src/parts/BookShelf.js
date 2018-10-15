@@ -3,7 +3,7 @@ import Book from "./Book";
 
 class BookShelf extends Component
 {
-  state{}
+  state= {}
 
     render()
     {
@@ -18,5 +18,5 @@ class BookShelf extends Component
         </div>
       )
     }
-
-export default BookShelf;
+}
+    export default BookShelf;
