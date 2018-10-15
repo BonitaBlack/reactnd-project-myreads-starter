@@ -1,9 +1,57 @@
-import React from 'react'
-// import * as BooksAPI from './BooksAPI'
-import './App.css'
+import React, {Component} from 'react'
+import * as BooksAPI from '../BooksAPI';
+import {Link} from 'react-router-dom';
+import * as BookUtils from '../BookUtils';
+import Book from './Book';
 
 class Search extends Component {
-  state = {}
+  state = {
+      query: "",
+      books: [],
+      quickView: {},
+      showModel: false
+  };
+  queryTimer = null;
+
+  changeQuery = (value)=>
+  {
+    clearTimeout(this.queryTimer);
+    this.setState({query: value});
+    this.queryTimer = setTimeout(this.updateSearch, 250);
+  }
+  updateSearch= ()=>
+  {
+    if (this.state.query === "")
+    {
+      this.setState({error: false, books: []});
+      return;
+    }
+    BooksAPI
+      .search(this.state.query)
+      .then(response =>
+      {
+          let newList = [];
+          let newError = false;
+          if (response === undefined || (response.error &&  response.error !== "empty query"))
+          {
+            newError = true;
+          }
+          else if (response.length)
+          {
+            newList = BookUtils.mergeShelfAndSearch(this.props.selectedBooks, response);
+            newList = BookUtils.sortAllBooks(newList);
+            }
+            this.setState({error: newError, books: newList});
+      })
+  }
+
+  componentWillReceiveProps = (props)=>
+  {
+    this.props= props;
+    let newList = BookUtils.mergeShelfAndSearch(this.props.selectedBooks, this.state.books);
+    newList = BookUtils.sortAllBooks(newList);
+    this.setState({books: newList});
+  }
 
 
 
@@ -11,17 +59,38 @@ class Search extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+          <Link className="close-search" to='/'>Close</Link>
           <div className="search-books-input-wrapper">
-            
-            <input type="text" placeholder="Search by title or author"/>
+
+            <input type="text" placeholder="Search by title or author"
+            onChange={(e) => this.changeQuery(e.target.value)}
+            value={this.state.query.value}/>
 
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+            {this.state.error && (<div className="search-error">
+            There was a problem with your search</div>
+          )}
+          {!this.state.error && ( <span className="search-count">
+        {this.state.books.length}&nbsp: books match your search</span>
+      )}
+          <ol className="books-grid">
+          {this.state.books && this
+            .state
+              .books
+              .map(book =>
+              (
+                <li key={book.id}>
+                <Book
+                  book={book}
+                  onChangeShelf={this.props.onChangeShelf}/>
+                  </li>
+              ))}
+              </ol>
         </div>
       </div>
         )
       }
     }
+    export default Search

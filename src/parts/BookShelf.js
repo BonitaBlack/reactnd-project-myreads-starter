@@ -9,7 +9,7 @@ class BookShelf extends Component
     {
       return (
         <div className="bookshelf">
-          <h2 className="bookshelf-title">Currently Reading</h2>
+          <h2 className="bookshelf-title">{this.value}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
             {this
@@ -20,7 +20,7 @@ class BookShelf extends Component
                   <li key={book.id}>
                     <Book
                     book={book}
-                    />
+                    onChangeShelf={this.props.onChangeShelf}/>
                     </li>
                   ))}
             </ol>

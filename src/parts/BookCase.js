@@ -5,9 +5,7 @@ import  BookShelf from "./BookShelf";
 class BookCase extends Component
 {
   state =
-  {
-
-  }
+  {}
    componentDidMount = () =>
    {
      this
@@ -62,6 +60,7 @@ updateShelves = () =>
         {shelves && shelves.map((shelf)=> (<BookShelf
           key={shelf.name}
           shelf = {shelf}
+          onChangeShelf={this.props.onChangeShelf}
           />))}
 
         </div>
